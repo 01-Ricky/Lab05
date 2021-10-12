@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
 
     public Text Timertext;
     private float TimerValue;
-    public float timeleft;
+    private float timeleft;
 
     public int timeRemaining;
 
@@ -21,11 +21,12 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         coinscore = 0;
-        
+        timeleft = 40;
+
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         timeleft -= Time.deltaTime;
         timeRemaining = Mathf.FloorToInt(timeleft % 60);
@@ -33,19 +34,23 @@ public class PlayerController : MonoBehaviour
         cointext.text = "Coin: " + coinscore;
 
 
-        if (coinscore == 70)
-        {          
-                GameObject.Find("FPSController").GetComponent<FirstPersonController>().m_MouseLook.m_cursorIsLocked = false;
-                SceneManager.LoadScene("GameWinScene");     
+        if (coinscore >= 70)
+        {
+            GameObject.Find("FPSController").GetComponent<FirstPersonController>().m_MouseLook.m_cursorIsLocked = false;
+            SceneManager.LoadScene("GameWinScene");
+            
 
-        }
-       if (timeleft <= 0)
+        }       
+
+        if (timeleft <= 0)
         {
             GameObject.Find("FPSController").GetComponent<FirstPersonController>().m_MouseLook.m_cursorIsLocked = false;
             SceneManager.LoadScene("GameLoseScene");
-
+           
         }
 
+        
+        
     }
 
     private void OnTriggerEnter(Collider other)
