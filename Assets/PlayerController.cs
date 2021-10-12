@@ -7,7 +7,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class PlayerController : MonoBehaviour
 {
-
+    public GameObject coineffect;
     public Text cointext;
     public float coinscore;
 
@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
         {
             coinscore += 10;
             Destroy(other.gameObject);
+            Destroy(Instantiate(coineffect, other.transform.position, Quaternion.identity), 4);
         }
         if (other.gameObject.tag == "Water")
         {
